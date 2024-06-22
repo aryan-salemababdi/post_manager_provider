@@ -1,17 +1,20 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useContext } from "react";
+import { PostContext } from "../../../context/post";
 
 const Header = () => {
 
-    const onCheangeSearch = (e: ChangeEvent<HTMLInputElement>): void => {
+    const { setSearch, postState } = useContext(PostContext)!;
+
+    const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
-        console.log(value);
+        setSearch(value);
     };
 
     return (
         <>
             <div className="navbar bg-base-100">
                 <div className="flex-1">
-                    <p>Posts (2)</p>
+                    <p className=" text-2xl">Posts({postState.posts?.length})</p>
                 </div>
                 <div className="flex-none gap=2">
                     <div className="form-control">
@@ -19,7 +22,7 @@ const Header = () => {
                             type="text"
                             placeholder="search ..."
                             className="input input-bordered w-45 max-w-xs"
-                            onChange={onCheangeSearch}
+                            onChange={onChangeSearch}
                         />
                     </div>
                 </div>

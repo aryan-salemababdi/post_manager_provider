@@ -1,19 +1,24 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { EditIcon } from "../../../icons/EditIcon";
 import { DeleteIcon } from "../../../icons/DeleteIcon";
+import { PostContext } from "../../../context/post";
+import { HttpMethod, PostActionTypes } from "../../../helper/constant";
+import useMutation from "../../../hooks/useMutation";
 
 
 const Item: FC<Post> = ({ id, title, content }) => {
 
-    const onClickDelete = (post: Post) => {
-        console.log("onclicked", post);
-    }
-    const onClickEdit = (id: string) => {
-        console.log("onclicked", id);
-    }
+    const { execute } = useMutation();
+    const { dispatch } = useContext(PostContext)!;
 
-    console.log(title);
-    
+    const onClickDelete = (id: string) => {
+        execute({ url: `post/${id}`, method: HttpMethod.DELETE });
+        dispatch!({ type: PostActionTypes.DELETE_POST, payload: id });
+    };
+
+    const onClickEdit = (post: Post) => {
+        dispatch!({ type: PostActionTypes.SET_POST, payload: post });
+    };
 
     return (
         <>
@@ -23,12 +28,12 @@ const Item: FC<Post> = ({ id, title, content }) => {
                         <h2>{title}</h2>
                         <div className="flex items-center gap-2">
                             <button className="btn btn-circle btn-outline btn-sm"
-                                onClick={() => onClickEdit}
+                                onClick={() => onClickEdit({ id, title, content })}
                             >
                                 <EditIcon />
                             </button>
                             <button className="btn btn-circle btn-outline btn-sm"
-                                onClick={() => onClickDelete}
+                                onClick={() => onClickDelete(id)}
                             >
                                 <DeleteIcon />
                             </button>

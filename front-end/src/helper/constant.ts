@@ -5,21 +5,16 @@ export enum PostActionTypes {
     GET_POSTS = "GET_POSTS",
     SET_POST = "SET_POST",
     SET_POSTS = "SET_POSTS",
-}
-
-
-export const InitialPostState: PostState = {
-    posts: [{ id: "", title: "", content: "" }],
-    selectedPost: {
-        id: "",
-        title: "",
-        content: ""
-    }
-};
-
-export enum HttpMethod {
+  }
+  
+  export enum HttpMethod {
     POST = "post",
     PUT = "put",
     DELETE = "delete",
     GET = "get",
-}
+  }
+  
+  export const InitialPostState: PostState = {
+    posts: [{ id: "1", title: "aa", content: "bb" }],
+    selectedPost: { id: "", title: "", content: "" } as Post,
+  };
