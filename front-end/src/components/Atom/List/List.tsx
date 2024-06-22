@@ -8,7 +8,7 @@ const List: FC = () => {
 
     const { postState, query, dispatch } = useContext(PostContext)!;
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch({
             type: PostActionTypes.SET_POST,
             payload: query.data as Post,
@@ -20,7 +20,7 @@ const List: FC = () => {
             <div className="flex flex-col gap-3 mt-5">
 
                 {
-                    postState.posts.length > 0 ?
+                    postState?.posts?.length > 0 ?
                         // eslint-disable-next-line @typescript-eslint/no-explicit-any
                         postState.posts?.map((item: any) => {
                             return (

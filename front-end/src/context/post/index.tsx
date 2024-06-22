@@ -17,14 +17,12 @@ type ProviderProps = {
   children: ReactNode;
 };
 
-export const PostContext = createContext<{
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  postState: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  dispatch: Dispatch<any>;
-  query: ReturnType<typeof useQuery>;
+const PostContext = createContext<{
+  postState: PostState;
+  dispatch: Dispatch<PostAction>;
   search: string;
   setSearch: Dispatch<SetStateAction<string>>;
+  query: ReturnType<typeof useQuery>;
 } | null>(null);
 
 const PostProvider: FC<ProviderProps> = ({ children }) => {
@@ -54,4 +52,4 @@ const PostProvider: FC<ProviderProps> = ({ children }) => {
   );
 };
 
-export default PostProvider;
+export { PostContext, PostProvider };
